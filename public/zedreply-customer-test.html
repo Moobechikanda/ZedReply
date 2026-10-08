@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZedReply Customer Test</title>
+</head>
+<body>
+  <main>
+    <img src="http://localhost:3000/brand-assets/zedreply-logo.svg" alt="ZedReply" width="180">
+    <h1>ZedReply customer chat</h1>
+    <p>Open the chat launcher at the bottom left to contact 5kmvp support.</p>
+  </main>
+  <script>
+    (function (document, tagName) {
+      const baseUrl = 'http://localhost:3000';
+      const script = document.createElement(tagName);
+      const firstScript = document.getElementsByTagName(tagName)[0];
+
+      window.chatwootSettings = { position: 'left' };
+      window.addEventListener('chatwoot:ready', () => {
+        window.$chatwoot.toggle('open');
+      }, { once: true });
+      script.src = `${baseUrl}/packs/js/sdk.js`;
+      script.async = true;
+      script.onload = () => window.chatwootSDK.run({
+        websiteToken: 'HfKoPhoEw3T2GaFVSooMHhRJ',
+        baseUrl,
+      });
+      firstScript.parentNode.insertBefore(script, firstScript);
+    })(document, 'script');
+  </script>
+</body>
+</html>

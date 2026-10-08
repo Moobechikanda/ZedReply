@@ -1,0 +1,14 @@
+{
+  "name": "ZedReply",
+  "short_name": "ZedReply",
+  "icons": [{
+    "src": "/brand-assets/zedreply-mark.svg",
+    "sizes": "any",
+    "type": "image/svg+xml",
+    "purpose": "any"
+  }],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2781F6",
+  "theme_color": "#2781F6"
+}

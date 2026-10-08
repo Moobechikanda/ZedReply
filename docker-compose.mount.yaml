@@ -1,0 +1,28 @@
+# Runs the working tree without building a Docker image.
+#
+# Docker builds for this app download Alpine packages, gems and npm packages, so
+# they fail whenever Docker Desktop's DNS or storage misbehaves. This override
+# sidesteps that: it reuses the already-pulled chatwoot/chatwoot image for gems
+# and the Ruby runtime, and bind-mounts the application source plus the assets
+# built by `pnpm dev:assets` over it.
+#
+# `pnpm dev` always applies this override, so the running app is always the code
+# in this repository. `docker-compose.production.yaml` is left deployment-safe on
+# its own for running on a server.
+#
+# Ruby, view and config changes only need `pnpm dev` again (or
+# `docker compose ... restart`). Frontend changes need `pnpm dev:assets` first:
+# it is slow and memory hungry, then restart.
+x-zedreply-working-tree: &zedreply-working-tree
+  - ./app:/app/app
+  - ./enterprise:/app/enterprise
+  - ./config:/app/config
+  - ./lib:/app/lib
+  - ./db:/app/db
+  - ./public/vite:/app/public/vite
+
+services:
+  rails:
+    volumes: *zedreply-working-tree
+  sidekiq:
+    volumes: *zedreply-working-tree

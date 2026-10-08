@@ -1,0 +1,22 @@
+# ------- Branding Related Config ------- #
+- name: INSTALLATION_NAME
+  value: 'ZedReply'
+- name: LOGO_THUMBNAIL
+  value: '/brand-assets/zedreply-mark.svg'
+- name: LOGO
+  value: '/brand-assets/zedreply-logo.svg'
+- name: LOGO_DARK
+  value: '/brand-assets/zedreply-logo-dark.svg'
+- name: BRAND_URL
+  value: 'https://zedreply.com'
+- name: WIDGET_BRAND_URL
+  value: 'https://zedreply.com'
+- name: BRAND_NAME
+  value: 'ZedReply'
+- name: TERMS_URL
+  value: 'https://zedreply.com/terms-of-service'
+- name: PRIVACY_URL
+  value: 'https://zedreply.com/privacy-policy'
+- name: DISPLAY_MANIFEST
+  value: true
+# ------- End of Branding Related Config ------- #
