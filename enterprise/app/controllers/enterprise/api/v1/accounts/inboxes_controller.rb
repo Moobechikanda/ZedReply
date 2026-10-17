@@ -5,6 +5,13 @@ module Enterprise::Api::V1::Accounts::InboxesController
     super + ee_inbox_attributes
   end
 
+  def create
+    super
+    return unless @inbox&.web_widget? && Current.account.captain_assistants.exists?
+
+    Onboarding::CaptainProvisioningService.new(Current.account).perform
+  end
+
   def enable_whatsapp_calling
     return unless ensure_whatsapp_calling_supported
 

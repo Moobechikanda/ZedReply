@@ -19,11 +19,19 @@
 class Captain::Assistant < ApplicationRecord
   DESCRIPTION_LENGTH_LIMIT = 500
   BUSINESS_PROFILE_FIELDS = {
+    'company_description' => 'Company description',
+    'industry' => 'Industry',
+    'mission' => 'Business mission',
+    'vision' => 'Business vision',
+    'values' => 'Business values',
+    'contact_details' => 'Business contact details and website',
     'offerings_and_pricing' => 'Products, services, options, availability, prices, currency, and fees',
     'business_hours' => 'Business hours and time zone',
     'locations_and_service_area' => 'Locations, addresses, and service area',
     'policies' => 'Shipping, returns, cancellations, refunds, and warranties',
     'faqs_and_eligibility' => 'Frequently asked questions and eligibility rules',
+    'communication_style' => 'Preferred customer communication style and tone',
+    'supported_languages' => 'Languages the business can support',
     'response_limits' => 'Claims the assistant must not make or promises it must not give',
     'human_handoff' => 'When to hand off and which team or contact should receive the conversation',
     'connected_systems' => 'Connected systems and what information or actions are actually available',
@@ -155,10 +163,33 @@ class Captain::Assistant < ApplicationRecord
   def business_profile_prompt
     profile = config.fetch('business_profile', {}).to_h.stringify_keys
 
-    BUSINESS_PROFILE_FIELDS.filter_map do |key, label|
+    sections = BUSINESS_PROFILE_FIELDS.filter_map do |key, label|
       value = profile[key].to_s.strip
       "#{label}:\n#{value}" if value.present?
-    end.join("\n\n")
+    end
+
+    catalog = Array(profile['catalog_items']).filter_map do |item|
+      item = item.to_h.stringify_keys
+      next if ActiveModel::Type::Boolean.new.cast(item['archived']) || item['name'].blank?
+
+      details = {
+        'Type' => item['kind'],
+        'Category' => item['category'],
+        'SKU' => item['sku'],
+        'Price' => [item['price'], item['currency']].compact_blank.join(' '),
+        'Availability' => item['availability'],
+        'Options and variations' => item['options'],
+        'Description' => item['description'],
+        'FAQ' => item['faq'],
+        'Product image' => item['image_url']
+      }.filter_map do |label, value|
+        "#{label}: #{value}" if value.present?
+      end
+
+      "#{item['name']}:\n#{details.join("\n")}"
+    end
+    sections << "Products and services catalog:\n#{catalog.join("\n\n")}" if catalog.present?
+    sections.join("\n\n")
   end
 
   def push_event_data

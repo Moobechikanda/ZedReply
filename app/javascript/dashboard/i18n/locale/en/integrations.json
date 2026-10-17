@@ -781,6 +781,30 @@
         "BUSINESS_PROFILE": {
           "TITLE": "Business knowledge",
           "DESCRIPTION": "Add verified details the assistant should use when answering customers. Leave a field blank if it does not apply.",
+          "COMPANY_DESCRIPTION": {
+            "LABEL": "Company description",
+            "PLACEHOLDER": "Describe what the company does, who it serves, and the products or services it provides."
+          },
+          "INDUSTRY": {
+            "LABEL": "Industry",
+            "PLACEHOLDER": "Enter the industry or field the company works in."
+          },
+          "MISSION": {
+            "LABEL": "Mission",
+            "PLACEHOLDER": "Describe the business purpose and the customer need it serves."
+          },
+          "VISION": {
+            "LABEL": "Vision",
+            "PLACEHOLDER": "Describe the long-term goal or impact the business is working toward."
+          },
+          "VALUES": {
+            "LABEL": "Values",
+            "PLACEHOLDER": "List the principles that guide how the business serves customers."
+          },
+          "CONTACT_DETAILS": {
+            "LABEL": "Contact details and website",
+            "PLACEHOLDER": "Add the public phone number, email address, website, and preferred contact method."
+          },
           "OFFERINGS_AND_PRICING": {
             "LABEL": "Products, services, and pricing",
             "PLACEHOLDER": "List products or services, options, availability, exact prices, currency, and extra fees."
@@ -801,6 +825,14 @@
             "LABEL": "FAQs and eligibility",
             "PLACEHOLDER": "Add common questions, eligibility requirements, exclusions, and any required customer details."
           },
+          "COMMUNICATION_STYLE": {
+            "LABEL": "Communication style",
+            "PLACEHOLDER": "Describe the tone and wording to use with customers, such as concise, warm, formal, or technical."
+          },
+          "SUPPORTED_LANGUAGES": {
+            "LABEL": "Supported languages",
+            "PLACEHOLDER": "List the languages the team can support and any language-specific limits."
+          },
           "RESPONSE_LIMITS": {
             "LABEL": "What the assistant must not promise",
             "PLACEHOLDER": "List unsupported guarantees, claims, exceptions, or topics that require confirmation."
@@ -812,6 +844,31 @@
           "CONNECTED_SYSTEMS": {
             "LABEL": "Connected systems and actions",
             "PLACEHOLDER": "Describe what connected tools can actually look up or change, such as order status or bookings. Do not list systems that are not connected."
+          },
+          "CATALOG": {
+            "TITLE": "Products and services catalog",
+            "DESCRIPTION": "Save exact product or service details. Archived items stay in the account but are excluded from Captain's answers.",
+            "ADD": "Add item",
+            "EMPTY": "No catalog items yet. Add a product or service to give Captain specific details to use.",
+            "ITEM": "Catalog item",
+            "ARCHIVED": "Archived",
+            "ARCHIVE": "Archive",
+            "RESTORE": "Restore",
+            "KIND": "Type",
+            "PRODUCT": "Product",
+            "SERVICE": "Service",
+            "NAME": "Name",
+            "CATEGORY": "Category",
+            "SKU": "SKU",
+            "PRICE": "Price",
+            "CURRENCY": "Currency",
+            "AVAILABILITY": "Availability",
+            "OPTIONS": "Options and variations",
+            "OPTIONS_PLACEHOLDER": "List sizes, colors, plans, or other variations and their differences.",
+            "DESCRIPTION": "Description",
+            "FAQ": "Common question and answer",
+            "FAQ_PLACEHOLDER": "For example: Does this include delivery? Yes, local delivery is included.",
+            "IMAGE_URL": "Product image URL"
           }
         },
         "WELCOME_MESSAGE": {

@@ -1,0 +1,11 @@
+x-zedreply-image: &zedreply-image
+  image: zedreply:local
+  build:
+    context: .
+    dockerfile: docker/Dockerfile
+
+services:
+  rails:
+    <<: *zedreply-image
+  sidekiq:
+    <<: *zedreply-image

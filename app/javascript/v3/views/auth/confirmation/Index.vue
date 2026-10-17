@@ -5,6 +5,9 @@ import Spinner from 'shared/components/Spinner.vue';
 
 export default {
   components: { Spinner },
+  data() {
+    return { confirmationFailed: false };
+  },
   props: {
     confirmationToken: {
       type: String,
@@ -22,7 +25,7 @@ export default {
         });
         window.location = DEFAULT_REDIRECT_URL;
       } catch (error) {
-        window.location = DEFAULT_REDIRECT_URL;
+        this.confirmationFailed = true;
       }
     },
   },
@@ -33,7 +36,13 @@ export default {
   <div
     class="flex items-center justify-center min-h-screen h-full bg-n-background w-full"
   >
-    <Spinner color-scheme="primary" size="" />
-    <div class="ml-2 text-n-slate-11">{{ $t('CONFIRM_EMAIL') }}</div>
+    <template v-if="!confirmationFailed">
+      <Spinner color-scheme="primary" size="" />
+      <div class="ml-2 text-n-slate-11">{{ $t('CONFIRM_EMAIL') }}</div>
+    </template>
+    <div v-else class="mx-auto max-w-md px-6 text-center">
+      <p class="text-n-slate-12">{{ $t('CONFIRM_EMAIL_FAILED') }}</p>
+      <a class="mt-4 inline-block text-n-blue-11" href="/app/login">{{ $t('LOGIN') }}</a>
+    </div>
   </div>
 </template>

@@ -17,6 +17,13 @@ RSpec.describe Enterprise::Onboarding::WebWidgetCreationService do
 
   before { create(:account_user, account: account, user: user, role: :administrator) }
 
+  it 'provisions and attaches the account assistant to its website inbox' do
+    inbox = service.perform
+
+    expect(inbox.captain_assistant.account_id).to eq(account.id)
+    expect(account.captain_assistants).to contain_exactly(inbox.captain_assistant)
+  end
+
   describe '#welcome_tagline_text via #perform' do
     let(:llm_double) { instance_double(Captain::Llm::WidgetTaglineService) }
 

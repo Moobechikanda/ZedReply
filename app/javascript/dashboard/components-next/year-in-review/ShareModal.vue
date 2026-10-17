@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { toPng } from 'html-to-image';
+import { useBranding } from 'shared/composables/useBranding';
 
 const props = defineProps({
   show: {
@@ -25,6 +26,7 @@ const props = defineProps({
 const emit = defineEmits(['close']);
 
 const { t } = useI18n();
+const { replaceInstallationName } = useBranding();
 
 const isGenerating = ref(false);
 const shareImageUrl = ref(null);
@@ -89,13 +91,13 @@ const generateImage = async () => {
     ctx.font = 'normal 16px system-ui, -apple-system, sans-serif';
     ctx.textAlign = 'left';
     ctx.fillText(
-      t('YEAR_IN_REVIEW.SHARE_MODAL.BRANDING'),
+      replaceInstallationName(t('YEAR_IN_REVIEW.SHARE_MODAL.BRANDING')),
       borderSize,
       img.height + borderSize + 35
     );
 
     const logo = new Image();
-    logo.src = '/brand-assets/logo.svg';
+    logo.src = '/brand-assets/zedreply-logo.svg';
     await new Promise(resolve => {
       logo.onload = resolve;
     });
@@ -122,7 +124,7 @@ const downloadImage = () => {
 
   const link = document.createElement('a');
   link.href = shareImageUrl.value;
-  link.download = `chatwoot-year-in-review-${props.year}.png`;
+  link.download = `anansiflow-year-in-review-${props.year}.png`;
   link.click();
 };
 

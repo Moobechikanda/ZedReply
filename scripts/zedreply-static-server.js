@@ -2,7 +2,7 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const port = 8080;
+const port = 8090;
 const publicDirectory = path.resolve(__dirname, '..', 'public');
 
 const server = http.createServer((request, response) => {

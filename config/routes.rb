@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   }, via: [:get, :post]
 
   post 'resend_confirmation', to: 'auth/resend_confirmations#create'
+  post 'confirm_email', to: 'auth/confirmations#create'
 
   ## renders the frontend paths only if its not an api only server
   if ActiveModel::Type::Boolean.new.cast(ENV.fetch('CW_API_ONLY_SERVER', false))

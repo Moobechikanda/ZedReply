@@ -1,4 +1,4 @@
-# Reports on every ZedReply feature surface: the Captain business knowledge
+# Reports on every AnansiFlow feature surface: the Captain business knowledge
 # feature, whether the AI can actually answer, and the fork's own additions.
 # Read-only. Run it with:
 #
@@ -32,13 +32,13 @@ end
 assistant = account.captain_assistants.order(:id).first
 
 puts '=' * 72
-puts "ZedReply feature verification - account ##{account.id} #{account.name}"
+puts "AnansiFlow feature verification - account ##{account.id} #{account.name}"
 puts "ChatwootApp.enterprise? = #{ChatwootApp.enterprise?}"
 puts '=' * 72
 
 section '1. Captain business knowledge'
 fields = Captain::Assistant::BUSINESS_PROFILE_FIELDS
-check("model defines 8 business knowledge fields (found #{fields.size})") { fields.size == 8 }
+check("model defines 16 business knowledge fields (found #{fields.size})") { fields.size == 16 }
 check('v1 prompt renders a Business Information section') do
   Captain::Llm::SystemPromptsService.respond_to?(:assistant_response_generator)
 end

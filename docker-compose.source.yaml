@@ -4,8 +4,12 @@ x-zedreply-image: &zedreply-image
     context: .
     dockerfile: docker/Dockerfile
 
+
+
 services:
   rails:
     <<: *zedreply-image
+    entrypoint: ["docker/entrypoints/rails.sh"]
+
   sidekiq:
     <<: *zedreply-image

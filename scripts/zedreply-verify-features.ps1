@@ -1,5 +1,5 @@
 # Runs scripts/zedreply-verify-features.rb inside the running rails container.
-# Read-only: it reports on every ZedReply feature surface without changing data.
+# Read-only: it reports on every AnansiFlow feature surface without changing data.
 $ErrorActionPreference = 'Stop'
 
 $script = Join-Path $PSScriptRoot 'zedreply-verify-features.rb'

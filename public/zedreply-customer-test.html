@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ZedReply Customer Test</title>
+  <title>AnansiFlow Customer Test</title>
 </head>
 <body>
   <main>
-    <img src="http://localhost:3000/brand-assets/zedreply-logo.svg" alt="ZedReply" width="180">
-    <h1>ZedReply customer chat</h1>
-    <p>Open the chat launcher at the bottom left to contact 5kmvp support.</p>
+    <img id="brand-logo" alt="AnansiFlow" width="180">
+    <h1>AnansiFlow customer chat</h1>
+    <p>No company signup is needed. Open the chat launcher at the bottom left to try the sample business assistant. Its company details are fictional.</p>
   </main>
   <script>
     (function (document, tagName) {
-      const baseUrl = 'http://localhost:3000';
+      const baseUrl = window.location.origin;
+      document.getElementById('brand-logo').src = `${baseUrl}/brand-assets/zedreply-logo.svg`;
       const script = document.createElement(tagName);
       const firstScript = document.getElementsByTagName(tagName)[0];
 
@@ -24,7 +25,7 @@
       script.src = `${baseUrl}/packs/js/sdk.js`;
       script.async = true;
       script.onload = () => window.chatwootSDK.run({
-        websiteToken: 'HfKoPhoEw3T2GaFVSooMHhRJ',
+        websiteToken: 'zq8dMMfPZTmHneh5XExdEjUJ',
         baseUrl,
       });
       firstScript.parentNode.insertBefore(script, firstScript);

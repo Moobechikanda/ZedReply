@@ -17,7 +17,7 @@ RSpec.describe 'Installation::Onboarding API', type: :request do
         Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
         get '/installation/onboarding'
         expect(response).to have_http_status(:success)
-        expect(response.body).to include('Welcome to ZedReply')
+        expect(response.body).to include('Welcome to AnansiFlow')
         expect(response.body).not_to include('Welcome to Chatwoot')
         Redis::Alfred.delete(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
       end

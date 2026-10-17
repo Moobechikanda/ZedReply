@@ -1,14 +1,16 @@
+x-base: &base
+  image: chatwoot/chatwoot:latest
+  env_file: .env ## Change this file for customized env variables
+  volumes:
+    - storage_data:/app/storage
+    - ./public/brand-assets:/app/public/brand-assets:ro
+    - ./public/manifest.json:/app/public/manifest.json:ro
+    - ./public/zedreply-customer-test.html:/app/public/zedreply-customer-test.html:ro
+    - ./app/views/installation/onboarding/index.html.erb:/app/app/views/installation/onboarding/index.html.erb:ro
+    - ./app/views/super_admin/devise/sessions/new.html.erb:/app/app/views/super_admin/devise/sessions/new.html.erb:ro
+    - ./app/views/super_admin/application/_navigation.html.erb:/app/app/views/super_admin/application/_navigation.html.erb:ro
+
 services:
-  base: &base
-    image: chatwoot/chatwoot:latest
-    env_file: .env ## Change this file for customized env variables
-    volumes:
-      - storage_data:/app/storage
-      - ./public/brand-assets:/app/public/brand-assets:ro
-      - ./public/manifest.json:/app/public/manifest.json:ro
-      - ./app/views/installation/onboarding/index.html.erb:/app/app/views/installation/onboarding/index.html.erb:ro
-      - ./app/views/super_admin/devise/sessions/new.html.erb:/app/app/views/super_admin/devise/sessions/new.html.erb:ro
-      - ./app/views/super_admin/application/_navigation.html.erb:/app/app/views/super_admin/application/_navigation.html.erb:ro
 
   rails:
     <<: *base
@@ -18,10 +20,11 @@ services:
       redis:
         condition: service_healthy
     ports:
-      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:9000:3000'
     environment:
       - NODE_ENV=production
       - RAILS_ENV=production
+      - RAILS_SERVE_STATIC_FILES=true
       - POSTGRES_DATABASE=chatwoot
       - INSTALLATION_ENV=docker
     entrypoint: docker/entrypoints/rails.sh

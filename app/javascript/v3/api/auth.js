@@ -84,7 +84,7 @@ export const resendConfirmation = async ({ email, hCaptchaClientResponse }) => {
 
 export const verifyPasswordToken = async ({ confirmationToken }) => {
   try {
-    const response = await wootAPI.post('auth/confirmation', {
+    const response = await wootAPI.post('confirm_email', {
       confirmation_token: confirmationToken,
     });
     setAuthCredentials(response);

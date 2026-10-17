@@ -8,6 +8,9 @@ if Rails.env.production?
   Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
 end
 
+# Keep the public customer test chat available before a customer account is created.
+Onboarding::PublicDemoChatProvisioningService.new.perform unless Rails.env.test?
+
 ## Seeds for Local Development
 unless Rails.env.production?
 

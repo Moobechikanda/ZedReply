@@ -1,5 +1,5 @@
 {
-  "name": "ZedReply",
+  "name": "AnansiFlow",
   "description": "AI-powered customer support for business messaging channels",
   "website": "https://zedreply.com/",
   "logo": "https://zedreply.com/brand-assets/zedreply-mark.svg",
@@ -25,11 +25,11 @@
       "value": "production"
     },
     "FRONTEND_URL": {
-      "description": "Public root URL of this ZedReply installation. This will be used in emails.",
+      "description": "Public root URL of this AnansiFlow installation. This will be used in emails.",
       "value": "https://CHANGE.herokuapp.com"
     },
     "INSTALLATION_ENV": {
-      "description": "Installation method used for ZedReply.",
+      "description": "Installation method used for AnansiFlow.",
       "value": "heroku"
     },
     "REDIS_OPENSSL_VERIFY_MODE":{

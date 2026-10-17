@@ -130,9 +130,16 @@ class Api::V1::Accounts::Captain::AssistantsController < Api::V1::Accounts::Base
       :feature_contact_attributes, :welcome_message, :handoff_message,
       :resolution_message, :instructions, :temperature, :auto_resolve_mode,
       :response_window,
-      { business_profile: %i[
-        offerings_and_pricing business_hours locations_and_service_area policies
-        faqs_and_eligibility response_limits human_handoff connected_systems
+      { business_profile: [
+        *%i[
+          company_description industry mission vision values contact_details
+          offerings_and_pricing business_hours
+          locations_and_service_area policies faqs_and_eligibility communication_style
+          supported_languages response_limits human_handoff connected_systems
+        ],
+        { catalog_items: [%i[
+          kind name category sku price currency availability options description faq image_url archived
+        ]] }
       ] }
     ]
     if Current.account.feature_enabled?('captain_integration_v2')

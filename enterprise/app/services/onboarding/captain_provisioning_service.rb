@@ -62,14 +62,23 @@ module Onboarding
     # invented facts.
     def business_profile
       {
+        'company_description' => '',
+        'industry' => account.custom_attributes['industry'].to_s,
+        'mission' => '',
+        'vision' => '',
+        'values' => '',
+        'contact_details' => '',
         'offerings_and_pricing' => '',
         'business_hours' => '',
         'locations_and_service_area' => '',
         'policies' => '',
         'faqs_and_eligibility' => '',
+        'communication_style' => '',
+        'supported_languages' => '',
         'response_limits' => "Do not quote prices, dates or delivery promises that are not in the #{account.name} knowledge base or synced documents.",
         'human_handoff' => handoff_instructions,
-        'connected_systems' => ''
+        'connected_systems' => '',
+        'catalog_items' => []
       }
     end
 
@@ -84,11 +93,11 @@ module Onboarding
     # asked the assistant to answer. Other channels stay with human agents until
     # an administrator attaches them from Captain > Inboxes.
     def attach_website_inbox(assistant)
-      widget = account.inboxes.find { |inbox| inbox.channel_type == 'Channel::WebWidget' }
-      return if widget.blank?
-      return if CaptainInbox.exists?(inbox_id: widget.id)
+      account.inboxes.where(channel_type: 'Channel::WebWidget').find_each do |widget|
+        next if CaptainInbox.exists?(inbox_id: widget.id)
 
-      CaptainInbox.create!(captain_assistant: assistant, inbox: widget)
+        CaptainInbox.create!(captain_assistant: assistant, inbox: widget)
+      end
     end
 
     def index_website(assistant)

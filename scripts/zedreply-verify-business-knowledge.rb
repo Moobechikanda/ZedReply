@@ -16,12 +16,12 @@ rescue StandardError => e
 end
 
 puts '=' * 72
-puts "ZedReply business knowledge verification  (#{Time.current})"
+puts "AnansiFlow business knowledge verification  (#{Time.current})"
 puts '=' * 72
 
 puts "\n1. Model"
 fields = Captain::Assistant::BUSINESS_PROFILE_FIELDS
-check("BUSINESS_PROFILE_FIELDS has 8 fields (found #{fields.size})") { fields.size == 8 }
+check("BUSINESS_PROFILE_FIELDS has 16 fields (found #{fields.size})") { fields.size == 16 }
 fields.each { |key, label| puts "         - #{key}: #{label}" }
 
 puts "\n2. Prompt builder"
@@ -42,6 +42,23 @@ puts "         business_profile_prompt:"
 prompt.each_line { |line| puts "           #{line.rstrip}" }
 check('populated fields are rendered') { prompt.include?('41 dollars per month') }
 check('blank fields are skipped') { !prompt.include?('Shipping, returns') }
+catalog_probe = Captain::Assistant.new(
+  account: Account.first,
+  config: {
+    'business_profile' => {
+      'catalog_items' => [
+        { 'kind' => 'product', 'name' => 'Catalog verification item', 'price' => '41', 'currency' => 'USD' },
+        { 'kind' => 'service', 'name' => 'Archived verification item', 'archived' => true }
+      ]
+    }
+  }
+).business_profile_prompt
+check('active catalog items are included in the assistant prompt') do
+  catalog_probe.include?('Catalog verification item') && catalog_probe.include?('41 USD')
+end
+check('archived catalog items are excluded from the assistant prompt') do
+  !catalog_probe.include?('Archived verification item')
+end
 check('empty profile produces empty prompt') do
   Captain::Assistant.new(account: Account.first, config: {}).business_profile_prompt.strip.empty?
 end
@@ -78,13 +95,18 @@ controller.params = ActionController::Parameters.new(
     description: 'Temporary assistant used for verification',
     config: {
       product_name: 'Verification Product',
-      business_profile: fields.keys.index_with { '' }.merge('offerings_and_pricing' => 'x'),
+      business_profile: fields.keys.index_with { '' }.merge(
+        'offerings_and_pricing' => 'x',
+        'catalog_items' => [{ 'kind' => 'product', 'name' => 'Verification Product', 'price' => '1', 'currency' => 'USD' }]
+      ),
       unexpected_key: 'should be dropped'
     }
   }
 )
 permitted = controller.send(:assistant_params)[:config][:business_profile]
-check("permits all #{fields.size} business profile keys") { permitted.keys.sort == fields.keys.sort }
+check('permits every business profile field and the catalog') do
+  permitted.keys.sort == (fields.keys + ['catalog_items']).sort
+end
 check('drops unknown keys') { !permitted.key?(:unexpected_key) }
 check('assistant validates with a profile') do
   Captain::Assistant.new(account: account, name: 'x', description: 'y',

@@ -1,4 +1,10 @@
 module Enterprise::Onboarding::WebWidgetCreationService
+  def perform
+    inbox = super
+    Onboarding::CaptainProvisioningService.new(@account).perform if inbox.present?
+    inbox
+  end
+
   private
 
   def welcome_tagline_text

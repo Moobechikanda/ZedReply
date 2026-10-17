@@ -576,6 +576,18 @@ RSpec.describe 'Inboxes API', type: :request do
         expect(response.body).to include('test.com')
       end
 
+      it 'attaches the account Captain assistant to its newly created website inbox' do
+        assistant = create(:captain_assistant, account: account)
+
+        post "/api/v1/accounts/#{account.id}/inboxes",
+             headers: admin.create_new_auth_token,
+             params: valid_params,
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(account.inboxes.find_by!(channel_type: 'Channel::WebWidget').captain_assistant).to eq(assistant)
+      end
+
       it 'creates a email inbox when administrator' do
         post "/api/v1/accounts/#{account.id}/inboxes",
              headers: admin.create_new_auth_token,

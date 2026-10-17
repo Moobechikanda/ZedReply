@@ -20,9 +20,14 @@ x-zedreply-working-tree: &zedreply-working-tree
   - ./lib:/app/lib
   - ./db:/app/db
   - ./public/vite:/app/public/vite
+  - ./public/zedreply-customer-test.html:/app/public/zedreply-customer-test.html:ro
 
 services:
   rails:
     volumes: *zedreply-working-tree
+    extra_hosts:
+      - host.docker.internal:host-gateway
   sidekiq:
     volumes: *zedreply-working-tree
+    extra_hosts:
+      - host.docker.internal:host-gateway

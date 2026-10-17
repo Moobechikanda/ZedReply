@@ -2,7 +2,7 @@ param(
   [Parameter(Mandatory = $true)]
   [string]$WebsiteUrl,
   [int]$AccountId = 2,
-  [string]$AssistantName = "Zedreply Support AI"
+  [string]$AssistantName = "AnansiFlow Support AI"
 )
 
 $ErrorActionPreference = "Stop"

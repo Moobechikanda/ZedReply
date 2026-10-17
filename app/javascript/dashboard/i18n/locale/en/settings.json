@@ -303,6 +303,7 @@
     }
   },
   "CONFIRM_EMAIL": "Verifying...",
+  "CONFIRM_EMAIL_FAILED": "This confirmation link is invalid, expired, or already used. Sign in or request a new confirmation email.",
   "SETTINGS": {
     "INBOXES": {
       "NEW_INBOX": "Add Inbox"

@@ -18,7 +18,7 @@ export default defineConfig({
   use: {
     actionTimeout: 30 * 1000,
     navigationTimeout: 30 * 1000,
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
+    baseURL: process.env.BASE_URL || 'http://localhost:9000',
     trace: 'retain-on-failure',
     headless: false,
     viewport: {

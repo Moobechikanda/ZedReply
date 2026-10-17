@@ -23,6 +23,15 @@ module Enterprise::Conversation
     self.captain_activity_reason_type = previous_reason_type
   end
 
+  def bot_handoff!(dispatch_event: true)
+    result = super
+    assistant = inbox.captain_assistant
+    if assistant.present?
+      Captain::Conversation::ReturnToAssistantJob.set(wait: 5.minutes).perform_later(id, waiting_since)
+    end
+    result
+  end
+
   private
 
   def determine_conversation_status

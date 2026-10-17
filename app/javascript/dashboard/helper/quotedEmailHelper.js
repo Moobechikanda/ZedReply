@@ -99,16 +99,10 @@ export const getEmailDate = lastEmail => {
  * @returns {string} Formatted date string
  */
 export const formatQuotedEmailDate = date => {
-  try {
-    return format(date, "EEE, MMM d, yyyy 'at' p");
-  } catch (error) {
-    const fallbackDate = new Date(date);
-    if (!Number.isNaN(fallbackDate.getTime())) {
-      return format(fallbackDate, "EEE, MMM d, yyyy 'at' p");
-    }
-  }
-
-  return '';
+  const parsedDate = date instanceof Date ? date : new Date(date);
+  return isValidDate(parsedDate)
+    ? format(parsedDate, "EEE, MMM d, yyyy 'at' p")
+    : '';
 };
 
 /**
